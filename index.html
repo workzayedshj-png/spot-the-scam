@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spot the Scam Challenge</title>
+<meta name="description" content="Can you spot the scam? A 1-minute Arabic and English challenge by the Spot the Scam capstone team, Higher Colleges of Technology.">
+<meta property="og:title" content="Spot the Scam Challenge">
+<meta property="og:description" content="6 messages. Scam or safe? Test yourself in 1 minute.">
+<meta name="theme-color" content="#06101D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 60'%3E%3Cpath d='M26 2 L48 10 V28 C48 42 38.5 52.5 26 58 C13.5 52.5 4 42 4 28 V10 Z' fill='%2306101D' stroke='%233ED2E3' stroke-width='4'/%3E%3Cpath d='M17 30 L23.5 36.5 L36 23' fill='none' stroke='%233ED2E3' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one phone-width column, one card per step — matches the Spot the Scam poster (single dark look) */
+:root{
+  --bg:#06101D; --panel:#0B1A2D; --panel-2:#0F2238; --line:#1E3754; --line-2:#2A4A6E;
+  --fg:#EAF2F9; --muted:#A9BCD0; --body:#C3D3E3;
+  --accent:#3ED2E3; --accent-soft:rgba(62,210,227,.12);
+  --warn:#FF9A4D; --warn-soft:rgba(255,154,77,.12); --warn-text:#FFC59A;
+  --safe:#5BE3A4; --safe-soft:rgba(91,227,164,.12);
+  --display:'Chakra Petch','Segoe UI',sans-serif;
+  --sans:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --arabic:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.5;
+  background-image:linear-gradient(rgba(62,210,227,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(62,210,227,.04) 1px,transparent 1px);background-size:36px 36px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+[dir="rtl"] body, body[dir="rtl"]{font-family:var(--arabic)}
+.wrap{max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.04em}
+.brand b{color:var(--accent);font-weight:700}
+.lang{font-family:var(--mono);font-size:13px;background:transparent;color:var(--fg);border:1px solid var(--line-2);border-radius:999px;padding:8px 14px;cursor:pointer;min-height:40px}
+.lang:focus-visible,.btn:focus-visible,.choice:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--display);font-size:34px;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.01em}
+body[dir="rtl"] h1{font-family:var(--arabic);font-weight:600;line-height:1.3}
+h2{font-family:var(--display);font-size:22px;margin:0;letter-spacing:.03em;text-transform:uppercase}
+body[dir="rtl"] h2{font-family:var(--arabic);font-weight:600;text-transform:none}
+p{margin:0;color:var(--body)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+body[dir="rtl"] .eyebrow{font-family:var(--arabic);font-size:14px;letter-spacing:0;font-weight:600}
+.btn{font:inherit;font-weight:600;font-size:17px;border:0;border-radius:12px;padding:14px 18px;min-height:52px;cursor:pointer;background:var(--accent);color:#04121C}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line-2)}
+.progress{display:flex;gap:6px}
+.progress span{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.progress span.done{background:var(--accent)}
+.progress span.now{background:var(--muted)}
+.msg{background:var(--panel-2);border:1px solid #23405F;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.meta{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.05em}
+.subject{font-weight:600;color:var(--fg);font-size:15px}
+.text{font-size:18px;line-height:1.6;color:var(--fg);overflow-wrap:anywhere}
+.text.ar{font-family:var(--arabic)}
+mark{background:transparent;color:inherit}
+.revealed mark{background:var(--warn-soft);color:var(--warn-text);border-bottom:2px solid var(--warn);padding:0 3px;border-radius:2px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{font:inherit;font-weight:600;font-size:18px;border-radius:12px;min-height:60px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--panel-2);color:var(--fg)}
+.choice.scam{border:1.5px solid var(--warn)}
+.choice.safe{border:1.5px solid var(--safe)}
+.choice svg{flex-shrink:0}
+.verdict{border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.verdict.is-scam{background:var(--warn-soft);border:1.5px solid var(--warn)}
+.verdict.is-safe{background:var(--safe-soft);border:1.5px solid var(--safe)}
+.vtop{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.vlabel{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:.04em}
+body[dir="rtl"] .vlabel{font-family:var(--arabic);font-weight:600}
+.is-scam .vlabel{color:var(--warn)} .is-safe .vlabel{color:var(--safe)}
+.you{font-size:14px;font-weight:600}
+.you.right{color:var(--safe)} .you.wrong{color:var(--warn-text)}
+.tip{color:var(--fg);font-size:16px}
+.score{font-family:var(--display);font-size:64px;font-weight:700;line-height:1;color:var(--accent)}
+.score small{font-size:28px;color:var(--muted)}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0;padding:0;list-style:none}
+.steps li{background:var(--panel-2);border:1px solid #23405F;border-radius:10px;padding:10px 12px;font-size:14px;color:var(--body);min-width:0}
+.steps li b{display:block;color:var(--fg);font-size:15px}
+.steps li.key{border-color:var(--accent);background:var(--accent-soft)}
+.team{font-size:14px;color:var(--muted);line-height:1.7}
+.team b{color:var(--fg);font-weight:600}
+.note{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row .btn{flex:1}
+@media (prefers-reduced-motion:no-preference){.card{animation:in .25s ease-out}@keyframes in{from{transform:translateY(6px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <svg width="26" height="30" viewBox="0 0 52 60" fill="none" aria-hidden="true"><path d="M26 2 L48 10 V28 C48 42 38.5 52.5 26 58 C13.5 52.5 4 42 4 28 V10 Z" stroke="#3ED2E3" stroke-width="3.5" stroke-linejoin="round"/><path d="M17 30 L23.5 36.5 L36 23" stroke="#3ED2E3" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>SPOT THE <b>SCAM</b></span>
+    </div>
+    <button class="lang" id="lang" type="button" aria-label="Switch language">العربية</button>
+  </div>
+  <main id="app" aria-live="polite"></main>
+</div>
+
+<script>
+const T = {
+  en:{
+    introEyebrow:'60-second challenge', introTitle:'Can you spot the scam?',
+    introText:'Six real-style messages in Arabic and English. For each one, decide: scam or safe.',
+    introNote:'All messages are made up for this challenge. Links are disabled.',
+    start:'Start', of:'of', scam:'Scam', safe:'Safe', question:'Scam or safe?',
+    isScam:"IT'S A SCAM", isSafe:"IT'S SAFE", right:'You got it right', wrong:'This one fooled you',
+    next:'Next message', finish:'See my score',
+    scoreTitle:'You spotted', r6:'Sharp eye. But scammers only need you to slip once.',
+    r4:'Good, but some got past you. Imagine one of them in your inbox.',
+    r0:'These are hard to judge. That is exactly why we are building an AI to help.',
+    whyTitle:'Why we are building this',
+    whyText:'Scammers in the UAE write in Arabic, English, or both, while most filters are built for English. Our system will check a message in seconds and highlight the risky words, the way you just saw.',
+    howTitle:'How it will work',
+    steps:[['Paste or speak','Email, SMS or voice'],['Whisper','Speech to text'],['Language check','Arabic, English, mixed'],['AraBERT / mBERT','Scam or safe'],['SHAP / LIME','Explains which words'],['Result','Verdict, PDF, dashboard']],
+    status:'Capstone project · full system in development', team:'Team', sup:'Supervisor',
+    again:'Play again', share:'Ask us at the stand how the AI decides.'
+  },
+  ar:{
+    introEyebrow:'تحدي ٦٠ ثانية', introTitle:'هل تستطيع كشف الاحتيال؟',
+    introText:'ست رسائل بأسلوب حقيقي بالعربية والإنجليزية. قرّر لكل رسالة: احتيال أم آمنة؟',
+    introNote:'جميع الرسائل مصمّمة لهذا التحدي، والروابط معطّلة.',
+    start:'ابدأ', of:'من', scam:'احتيال', safe:'آمنة', question:'احتيال أم آمنة؟',
+    isScam:'رسالة احتيال', isSafe:'رسالة آمنة', right:'إجابتك صحيحة', wrong:'هذه الرسالة خدعتك',
+    next:'الرسالة التالية', finish:'اعرض نتيجتي',
+    scoreTitle:'اكتشفت', r6:'عين حادة! لكن المحتال يكفيه خطأ واحد منك.',
+    r4:'جيد، لكن بعض الرسائل خدعتك. تخيّل وصول إحداها إلى هاتفك.',
+    r0:'هذه الرسائل صعبة فعلاً، ولهذا نبني ذكاءً اصطناعياً يساعدك.',
+    whyTitle:'لماذا نبني هذا المشروع',
+    whyText:'المحتالون في الإمارات يكتبون بالعربية أو الإنجليزية أو بكلتيهما، بينما صُمّمت معظم أدوات الحماية للإنجليزية. نظامنا سيفحص الرسالة خلال ثوانٍ ويُبرز الكلمات الخطرة كما رأيت الآن.',
+    howTitle:'كيف سيعمل النظام',
+    steps:[['الصق أو تحدّث','بريد، رسالة نصية أو صوت'],['Whisper','تحويل الصوت إلى نص'],['تحديد اللغة','عربي، إنجليزي، مختلط'],['AraBERT / mBERT','احتيال أم آمنة'],['SHAP / LIME','يوضّح الكلمات المؤثرة'],['النتيجة','الحكم، تقرير PDF، لوحة متابعة']],
+    status:'مشروع تخرج · النظام الكامل قيد التطوير', team:'الفريق', sup:'المشرف',
+    again:'العب مرة أخرى', share:'اسألنا في الجناح كيف يتخذ الذكاء الاصطناعي قراره.'
+  }
+};
+const Q = [
+  {ch:'SMS', from:'BANK-ALERT', time:'09:12', ar:true, scam:true,
+   text:'عزيزي العميل، تم [[إيقاف بطاقتك]] مؤقتاً. [[لإعادة التفعيل اضغط هنا]]: [[hxxp://bank-verify[.]example]]',
+   tip:{en:'Banks never ask you to reactivate a card through a link. Call the number on the back of your card.',
+        ar:'البنوك لا تطلب إعادة تفعيل البطاقة عبر رابط. اتصل بالرقم الموجود خلف بطاقتك.'}},
+  {ch:'SMS', from:'AD-OTP', time:'10:03', ar:false, scam:false,
+   text:'Your verification code is 482913. Do not share this code with anyone, including bank staff.',
+   tip:{en:'No link, no request for money, and it warns you not to share the code. Trust it only if you just asked for a code.',
+        ar:'لا يوجد رابط ولا طلب مال، وتحذّرك من مشاركة الرمز. صدّقها فقط إذا طلبت رمزاً للتو.'}},
+  {ch:'SMS', from:'PARCEL-AE', time:'11:47', ar:false, scam:true,
+   text:'Your parcel is on hold. [[ادفع 5 درهم]] رسوم التوصيل [[now]] to avoid return: [[hxxp://parcel-ae[.]example]]',
+   tip:{en:'A small "delivery fee" by link is a classic way to steal card details. Track parcels only in the courier\'s official app.',
+        ar:'رسوم توصيل صغيرة عبر رابط حيلة معروفة لسرقة بيانات البطاقة. تتبّع الشحنات من التطبيق الرسمي فقط.'}},
+  {ch:'EMAIL', from:'billing@power-water-uae.example', time:'13:20', ar:false, scam:true,
+   subject:'[[Final notice]]: service disconnection today',
+   text:'Your electricity account shows an unpaid balance of AED 450. [[Pay immediately]] via the secure link below or your [[supply will be cut within 2 hours]].',
+   tip:{en:'Pressure and short deadlines are a scammer\'s main tool. Check your bill in the provider\'s official app.',
+        ar:'الضغط والمهلة القصيرة أهم أدوات المحتال. تحقّق من فاتورتك في التطبيق الرسمي لمزوّد الخدمة.'}},
+  {ch:'SMS', from:'MyBank', time:'15:05', ar:true, scam:false,
+   text:'تم خصم 120 درهم من بطاقتك المنتهية بـ 4417 لدى سوبرماركت. إذا لم تقم بهذه العملية، اتصل بالرقم الموجود خلف بطاقتك.',
+   tip:{en:'It gives details you can check, has no link, and sends you to the number on your own card.',
+        ar:'تحتوي تفاصيل يمكنك التحقق منها، ولا يوجد رابط، وتوجّهك إلى الرقم المطبوع على بطاقتك.'}},
+  {ch:'SMS', from:'UAE-PRIZES', time:'18:31', ar:false, scam:true,
+   text:'Congratulations! [[ربحت iPhone 17]] في السحب الشهري. [[Claim before midnight]]: [[hxxp://win-uae[.]example]]',
+   tip:{en:'You cannot win a draw you never entered. Prize + deadline + link = scam.',
+        ar:'لا يمكنك الفوز في سحب لم تشارك فيه. جائزة + مهلة + رابط = احتيال.'}}
+];
+
+let lang='en', step=-1, answers=[], revealed=false;
+const app=document.getElementById('app'), langBtn=document.getElementById('lang');
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=s=>esc(s).replace(/\[\[(.+?)\]\]/g,'<mark>$1</mark>');
+const hasAr=s=>/[؀-ۿ]/.test(s);
+const iconScam='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 L22 20 H2 Z" stroke="#FF9A4D" stroke-width="2" stroke-linejoin="round"/><path d="M12 10 V14 M12 17 V17.2" stroke="#FF9A4D" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const iconSafe='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="#5BE3A4" stroke-width="2"/><path d="M7.5 12.5 L10.5 15.5 L16.5 9" stroke="#5BE3A4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function setLang(l){
+  lang=l; const t=T[l];
+  document.body.dir = l==='ar'?'rtl':'ltr';
+  document.documentElement.lang = l;
+  langBtn.textContent = l==='ar'?'English':'العربية';
+  langBtn.setAttribute('aria-label', l==='ar'?'Switch to English':'التبديل إلى العربية');
+  render();
+}
+langBtn.addEventListener('click',()=>setLang(lang==='en'?'ar':'en'));
+
+function progress(){
+  return '<div class="progress" aria-hidden="true">'+Q.map((_,i)=>`<span class="${i<step||(i===step&&revealed)?'done':i===step?'now':''}"></span>`).join('')+'</div>';
+}
+function render(){
+  const t=T[lang];
+  if(step<0){
+    app.innerHTML=`<section class="card">
+      <div class="eyebrow">${t.introEyebrow}</div>
+      <h1>${t.introTitle}</h1>
+      <p>${t.introText}</p>
+      <div class="msg revealed" aria-hidden="true"><div class="meta"><span>SMS · BANK-ALERT</span><span>09:12</span></div>
+        <div class="text ar" dir="rtl">عزيزي العميل، تم <mark>إيقاف بطاقتك</mark>…</div></div>
+      <button class="btn" id="go" type="button">${t.start}</button>
+      <p class="note">${t.introNote}</p></section>`;
+    document.getElementById('go').onclick=()=>{step=0;answers=[];revealed=false;render();};
+    return;
+  }
+  if(step>=Q.length){ return renderResult(); }
+  const q=Q[step], a=answers[step];
+  const msg=`<div class="msg ${revealed?'revealed':''}">
+      <div class="meta"><span>${q.ch} · ${esc(q.from)}</span><span>${q.time}</span></div>
+      ${q.subject?`<div class="subject">${fmt(q.subject)}</div>`:''}
+      <div class="text ${hasAr(q.text)?'ar':''}" dir="${q.ar?'rtl':'ltr'}">${fmt(q.text)}</div></div>`;
+  let lower;
+  if(!revealed){
+    lower=`<div class="choices">
+      <button class="choice scam" type="button" data-v="1">${iconScam}${t.scam}</button>
+      <button class="choice safe" type="button" data-v="0">${iconSafe}${t.safe}</button></div>`;
+  } else {
+    const ok=(a===q.scam);
+    lower=`<div class="verdict ${q.scam?'is-scam':'is-safe'}">
+        <div class="vtop"><span class="vlabel">${q.scam?t.isScam:t.isSafe}</span><span class="you ${ok?'right':'wrong'}">${ok?t.right:t.wrong}</span></div>
+        <p class="tip">${q.tip[lang]}</p></div>
+      <button class="btn" id="next" type="button">${step===Q.length-1?t.finish:t.next}</button>`;
+  }
+  app.innerHTML=`<section class="card">
+    ${progress()}
+    <div class="eyebrow">${step+1} ${t.of} ${Q.length} · ${t.question}</div>
+    ${msg}${lower}</section>`;
+  app.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{answers[step]=b.dataset.v==='1';revealed=true;render();document.getElementById('next')?.focus();});
+  const n=document.getElementById('next'); if(n) n.onclick=()=>{step++;revealed=false;render();};
+}
+function renderResult(){
+  const t=T[lang], s=answers.filter((v,i)=>v===Q[i].scam).length;
+  const line = s===6?t.r6:(s>=4?t.r4:t.r0);
+  app.innerHTML=`<section class="card">
+      <div class="eyebrow">${t.scoreTitle}</div>
+      <div class="score">${s} <small>/ ${Q.length}</small></div>
+      <p style="color:var(--fg);font-size:17px">${line}</p>
+    </section>
+    <section class="card">
+      <h2>${t.whyTitle}</h2>
+      <p>${t.whyText}</p>
+      <h2 style="font-size:18px">${t.howTitle}</h2>
+      <ol class="steps">${t.steps.map((x,i)=>`<li class="${i===3?'key':''}"><b>${x[0]}</b>${x[1]}</li>`).join('')}</ol>
+      <p class="note">${t.status}</p>
+      <div class="team"><b>${t.team}:</b> Humaid Alshamsi · Ahmed Mayed · Saif Ali · Zayed Ali Hadi · Rashed Ali<br><b>${t.sup}:</b> Dr. Elie Fares<br>CIS-4913 · Higher Colleges of Technology</div>
+    </section>
+    <div class="row"><button class="btn ghost" id="again" type="button">${t.again}</button></div>
+    <p class="note" style="text-align:center">${t.share}</p>`;
+  document.getElementById('again').onclick=()=>{step=0;answers=[];revealed=false;render();};
+}
+setLang('en');
+</script>
+
+</body>
+</html>
