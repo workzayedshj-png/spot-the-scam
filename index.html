@@ -111,12 +111,10 @@ const T = {
     scoreTitle:'You spotted', r6:'Sharp eye. But scammers only need you to slip once.',
     r4:'Good, but some got past you. Imagine one of them in your inbox.',
     r0:'These are hard to judge. That is exactly why we are building an AI to help.',
-    whyTitle:'Why we are building this',
-    whyText:'Scammers in the UAE write in Arabic, English, or both, while most filters are built for English. Our system will check a message in seconds and highlight the risky words, the way you just saw.',
-    howTitle:'How it will work',
-    steps:[['Paste or speak','Email, SMS or voice'],['Whisper','Speech to text'],['Language check','Arabic, English, mixed'],['AraBERT / mBERT','Scam or safe'],['SHAP / LIME','Explains which words'],['Result','Verdict, PDF, dashboard']],
-    status:'Capstone project · full system in development', team:'Team', sup:'Supervisor',
-    again:'Play again', share:'Ask us at the stand how the AI decides.'
+    aboutTitle:'About Spot the Scam',
+    aboutText:'Scam messages in the UAE can arrive in Arabic, English, or a mix of both. Spot the Scam is a student project that helps people check a suspicious email or SMS and see which words make it dangerous.',
+    credit:'A capstone project · Higher Colleges of Technology',
+    again:'Play again', share:'Thanks for playing!'
   },
   ar:{
     introEyebrow:'تحدي ٦٠ ثانية', introTitle:'هل تستطيع كشف الاحتيال؟',
@@ -128,12 +126,10 @@ const T = {
     scoreTitle:'اكتشفت', r6:'عين حادة! لكن المحتال يكفيه خطأ واحد منك.',
     r4:'جيد، لكن بعض الرسائل خدعتك. تخيّل وصول إحداها إلى هاتفك.',
     r0:'هذه الرسائل صعبة فعلاً، ولهذا نبني ذكاءً اصطناعياً يساعدك.',
-    whyTitle:'لماذا نبني هذا المشروع',
-    whyText:'المحتالون في الإمارات يكتبون بالعربية أو الإنجليزية أو بكلتيهما، بينما صُمّمت معظم أدوات الحماية للإنجليزية. نظامنا سيفحص الرسالة خلال ثوانٍ ويُبرز الكلمات الخطرة كما رأيت الآن.',
-    howTitle:'كيف سيعمل النظام',
-    steps:[['الصق أو تحدّث','بريد، رسالة نصية أو صوت'],['Whisper','تحويل الصوت إلى نص'],['تحديد اللغة','عربي، إنجليزي، مختلط'],['AraBERT / mBERT','احتيال أم آمنة'],['SHAP / LIME','يوضّح الكلمات المؤثرة'],['النتيجة','الحكم، تقرير PDF، لوحة متابعة']],
-    status:'مشروع تخرج · النظام الكامل قيد التطوير', team:'الفريق', sup:'المشرف',
-    again:'العب مرة أخرى', share:'اسألنا في الجناح كيف يتخذ الذكاء الاصطناعي قراره.'
+    aboutTitle:'عن مشروع Spot the Scam',
+    aboutText:'قد تصل رسائل الاحتيال في الإمارات بالعربية أو الإنجليزية أو بمزيج منهما. Spot the Scam مشروع طلابي يساعد الناس على فحص الرسائل والبريد المشبوه ومعرفة الكلمات التي تجعلها خطرة.',
+    credit:'مشروع تخرج · كليات التقنية العليا',
+    again:'العب مرة أخرى', share:'شكراً لمشاركتك!'
   }
 };
 const Q = [
@@ -233,12 +229,9 @@ function renderResult(){
       <p style="color:var(--fg);font-size:17px">${line}</p>
     </section>
     <section class="card">
-      <h2>${t.whyTitle}</h2>
-      <p>${t.whyText}</p>
-      <h2 style="font-size:18px">${t.howTitle}</h2>
-      <ol class="steps">${t.steps.map((x,i)=>`<li class="${i===3?'key':''}"><b>${x[0]}</b>${x[1]}</li>`).join('')}</ol>
-      <p class="note">${t.status}</p>
-      <div class="team"><b>${t.team}:</b> Humaid Alshamsi · Ahmed Mayed · Saif Ali · Zayed Ali Hadi · Rashed Ali<br><b>${t.sup}:</b> Dr. Elie Fares<br>CIS-4913 · Higher Colleges of Technology</div>
+      <h2>${t.aboutTitle}</h2>
+      <p>${t.aboutText}</p>
+      <p class="note">${t.credit}</p>
     </section>
     <div class="row"><button class="btn ghost" id="again" type="button">${t.again}</button></div>
     <p class="note" style="text-align:center">${t.share}</p>`;
